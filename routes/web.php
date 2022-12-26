@@ -14,5 +14,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('/about', function () {
+    return view('about', [
+        "name" => "Ibnu Rusdianto",
+        "email" => "ibnu.rusdianto55@gmail.com",
+        "image" => "gambar.jpg"
+    ]);
+});
+
+Route::get('/blog', function () {
+    return view('posts');
+});
+
+// Route::get('/', function () {
+//     return 'Halaman Home';
+// });
+
+// Route::get('/about', function () {
+//     return 'Halaman About';
+// });
+
+// Route::get('/blog', function () {
+//     return 'Halaman Blog';
+// });
