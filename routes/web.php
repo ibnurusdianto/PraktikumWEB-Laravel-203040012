@@ -14,19 +14,46 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('home', [
+        "title" => "Home"
+    ]);
 });
 
 Route::get('/about', function () {
     return view('about', [
+        "title" => "About",
         "name" => "Ibnu Rusdianto",
         "email" => "ibnu.rusdianto55@gmail.com",
         "image" => "gambar.jpg"
     ]);
 });
 
+
+
 Route::get('/blog', function () {
-    return view('posts');
+    $blog_posts = [
+        [
+            "title" => "Judul Post Pertama",
+            "slug" => "judul-post-pertama",
+            "author" => "Ibnu Rusdianto",
+            "body" => "Lorem ipsum dolor sit amet consectetur, 
+            adipisicing elit. Qui a perspiciatis non hic odit quod odio 
+            quibusdam fuga nobis vero deserunt, reiciendis eius earum aliquam inventore illum quasi id iure!"
+        ],
+    
+        [
+            "title" => "Judul Post Kedua",
+            "slug" => "judul-post-kedua",
+            "author" => "Heru Rusdianto",
+            "body" => "Lorem ipsum dolor sit amet consectetur, 
+            adipisicing elit. Qui a perspiciatis non hic odit quod odio 
+            quibusdam fuga nobis vero deserunt, reiciendis eius earum aliquam inventore illum quasi id iure!"
+        ]
+    ];
+    return view('posts', [
+        "title" => "Posts",
+        "posts" => $blog_posts
+    ]);
 });
 
 // Route::get('/', function () {
@@ -40,3 +67,38 @@ Route::get('/blog', function () {
 // Route::get('/blog', function () {
 //     return 'Halaman Blog';
 // });
+
+// halaman single post
+Route::get('posts/{slug}', function ($slug) {
+    $blog_posts = [
+        [
+            "title" => "Judul Post Pertama",
+            "slug" => "judul-post-pertama",
+            "author" => "Ibnu Rusdianto",
+            "body" => "Lorem ipsum dolor sit amet consectetur, 
+            adipisicing elit. Qui a perspiciatis non hic odit quod odio 
+            quibusdam fuga nobis vero deserunt, reiciendis eius earum aliquam inventore illum quasi id iure!"
+        ],
+    
+        [
+            "title" => "Judul Post Kedua",
+            "slug" => "judul-post-kedua",
+            "author" => "Heru Rusdianto",
+            "body" => "Lorem ipsum dolor sit amet consectetur, 
+            adipisicing elit. Qui a perspiciatis non hic odit quod odio 
+            quibusdam fuga nobis vero deserunt, reiciendis eius earum aliquam inventore illum quasi id iure!"
+        ]
+    ];
+
+    $new_post = [];
+    foreach($blog_posts as $post){
+        if($post["slug"] === $slug){
+            $new_post = $post;
+        }
+    }
+
+    return view('post', [
+        "title" => "Single Post",
+        "post" => $new_post
+    ]);
+});
